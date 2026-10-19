@@ -16,11 +16,15 @@ https://github.com/dosz1974/CRODEOPS/actions.
 |---|---|---|---|
 | push в development | quality → build → deploy | не запускается | development |
 | push в main | не запускается | quality → build → deploy | production |
+| ручной запуск development.yml из development | quality → build → deploy | не запускается | development |
+| ручной запуск main.yml из main | не запускается | quality → build → deploy | production |
 | PR с целью development | quality → build | не запускается | пропускается |
 | PR с целью main | не запускается | quality → build | пропускается |
 | push в feature/demo без PR | не запускается | не запускается | отсутствует |
 
 Фильтр `pull_request.branches` проверяет целевую ветку PR.
+При ручном запуске выбирайте соответствующую ветку. Проверка `quality`
+пропускается при выборе другой ветки, поэтому build и deploy также не выполняются.
 При PR development → main может также выполняться development-конвейер для
 отдельного события push в development; PR-конвейер main развертывание не выполняет.
 

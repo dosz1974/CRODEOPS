@@ -5,6 +5,7 @@ name: development pipeline
     branches: [development]
   pull_request:
     branches: [development]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -19,6 +20,7 @@ defaults:
 
 jobs:
   quality:
+    if: github.event_name != 'workflow_dispatch' || github.ref == 'refs/heads/development'
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
@@ -52,7 +54,7 @@ jobs:
 
   deploy:
     needs: build
-    if: github.event_name == 'push' && github.ref == 'refs/heads/development'
+    if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/development'
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     environment: development

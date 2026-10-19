@@ -13,12 +13,15 @@ def main():
         config = yaml.safe_load(path.read_text(encoding="utf-8"))
         assert config["on"]["push"]["branches"] == [branch]
         assert config["on"]["pull_request"]["branches"] == [branch]
+        assert "workflow_dispatch" in config["on"]
         jobs = config["jobs"]
+        assert f"github.ref == 'refs/heads/{branch}'" in jobs["quality"]["if"]
         assert jobs["build"]["needs"] == "quality"
         assert jobs["deploy"]["needs"] == "build"
         assert jobs["deploy"]["environment"] == environment
         condition = jobs["deploy"]["if"]
         assert "github.event_name == 'push'" in condition
+        assert "github.event_name == 'workflow_dispatch'" in condition
         assert f"github.ref == 'refs/heads/{branch}'" in condition
         assert config["permissions"] == {"contents": "read"}
         assert branch in config["concurrency"]["group"]
