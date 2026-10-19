@@ -10,6 +10,16 @@
 Актуальные результаты удаленных запусков доступны на странице
 https://github.com/dosz1974/CRODEOPS/actions.
 
+### Подтвержденные запуски 19 октября 2026 года
+
+- development: https://github.com/dosz1974/CRODEOPS/actions/runs/39232342517
+- main: https://github.com/dosz1974/CRODEOPS/actions/runs/39232347814
+
+Оба запуска через Run workflow завершились успешно. В каждом выполнены
+quality, build и deploy: Ruff, восемь тестов, сохранение и скачивание артефакта,
+учебное развертывание и проверки HTTP 200 / 200 / 404.
+Проверенный коммит: `1df4c6007dc13e393f58654c8aeb4f101897d37c`.
+
 ## Поведение
 
 | Событие | development.yml | main.yml | Развертывание |
